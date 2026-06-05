@@ -1,0 +1,12 @@
+package com.revio.entity;
+
+public enum Role {
+
+	ADMIN,
+	DEVELOPER,
+	REVIEWER
+}
+
+
+//eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiUkVWSUVXRVIiLCJ1c2VySWQiOjIsInN1YiI6ImhidEBnbWFpbC5jb20iLCJpYXQiOjE3ODA0ODk4NjQsImV4cCI6MTc4MDU3NjI2NH0.j2jb9oZXn9v2IIn66qo5haxmYEOmfdguOxNiRPt91E5EYlmypCyBmC_G-cbY7CHM
+
