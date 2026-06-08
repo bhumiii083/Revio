@@ -9,6 +9,7 @@ import com.revio.dto.CreateSubmissionRequest;
 import com.revio.dto.SubmissionResponse;
 import com.revio.entity.Submission;
 import com.revio.entity.SubmissionStatus;
+import com.revio.exception.SubmissionNotFoundException;
 import com.revio.repo.SubmissionRepository;
 
 @Service
@@ -75,7 +76,7 @@ public class SubmissionServiceImpl implements SubmissionService{
 	public SubmissionResponse getSubmissionById(Long id) {
 		
 		Submission submission = repository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Submission not found"));
+				.orElseThrow(() -> new SubmissionNotFoundException("Submission not found"));
 		return convertToResponse(submission);
 	}
 
