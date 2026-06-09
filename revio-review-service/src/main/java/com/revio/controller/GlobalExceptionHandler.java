@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.revio.exception.ReviewCommentNotFoundException;
 import com.revio.exception.ReviewNotFoundException;
 import com.revio.exception.SubmissionNotFoundException;
 
@@ -26,4 +27,8 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+	@ExceptionHandler(ReviewCommentNotFoundException.class)
+	public ResponseEntity<String> handleReviewCommentNotFoundException(ReviewCommentNotFoundException ex){
+		return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+	}
 }
