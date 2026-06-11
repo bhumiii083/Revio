@@ -18,12 +18,15 @@ public class ReviewCommentServiceImpl implements ReviewCommentService {
 	
 	private final ReviewCommentRepository commentRepository;
 	private final ReviewRepository reviewRepository;
+	private final AuditService auditService;
+
 	
 	
 
-	public ReviewCommentServiceImpl(ReviewCommentRepository commentRepository, ReviewRepository reviewRepository) {
+	public ReviewCommentServiceImpl(ReviewCommentRepository commentRepository, AuditService auditService,ReviewRepository reviewRepository) {
 		this.commentRepository = commentRepository;
 		this.reviewRepository = reviewRepository;
+		this.auditService=auditService;
 	}
 
 	@Override
@@ -39,6 +42,9 @@ public class ReviewCommentServiceImpl implements ReviewCommentService {
 	    comment.setIssueType(request.getIssueType());
 		
 		ReviewComment savedComment = commentRepository.save(comment);
+		auditService.saveLog(
+		        "Comment added",
+		        "reviewer@gmail.com");
 		
 		return new ReviewCommentResponse(savedComment.getId(),
 				savedComment.getReviewId(), savedComment.getCommentText(),

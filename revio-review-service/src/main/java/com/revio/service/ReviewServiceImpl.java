@@ -20,14 +20,17 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	private final ReviewRepository reviewRepository;
 	private final SubmissionRepository submissionRepository;
+	private final AuditService auditService;
+
 	
 	
 	
 
-	public ReviewServiceImpl(ReviewRepository reviewRepository, SubmissionRepository submissionRepository) {
+	public ReviewServiceImpl(ReviewRepository reviewRepository, SubmissionRepository submissionRepository, AuditService auditService) {
 		super();
 		this.reviewRepository = reviewRepository;
 		this.submissionRepository = submissionRepository;
+		this.auditService=auditService;
 	}
 
 	@Override
@@ -54,6 +57,9 @@ public class ReviewServiceImpl implements ReviewService {
 
         }
         submissionRepository.save(submission);
+        auditService.saveLog(
+                "Review approved",
+                reviewerEmail);
 		
 		return map(saved);
 	}

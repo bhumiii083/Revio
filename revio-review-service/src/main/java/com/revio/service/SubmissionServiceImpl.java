@@ -16,11 +16,13 @@ import com.revio.repo.SubmissionRepository;
 public class SubmissionServiceImpl implements SubmissionService{
 
 	private final SubmissionRepository repository;
+	private final AuditService auditService;
 	
 	
-	public SubmissionServiceImpl(SubmissionRepository repository) {
+	public SubmissionServiceImpl(SubmissionRepository repository, AuditService auditService) {
 		super();
 		this.repository = repository;
+		this.auditService = auditService;
 	}
 	
 
@@ -38,6 +40,9 @@ public class SubmissionServiceImpl implements SubmissionService{
 		submission.setStatus(SubmissionStatus.PENDING);
 		
 		Submission saved= repository.save(submission);
+		auditService.saveLog(
+		        "Submission created",
+		        developerEmail);
 		
 		return convertToResponse(saved);
 		
